@@ -3,28 +3,18 @@ import pandas as pd
 from datetime import datetime, timedelta
 import os
 
-# Configuration
-SYMBOL = "RELIANCE.NS"  # Reliance Enterprises on NSE
+
+SYMBOL = "RELIANCE.NS"  
 INTERVALS = ["1m", "5m", "1h"]
 OUTPUT_DIR = "./ohlcv_data"
 
-# Create output directory if it doesn't exist
+
 if not os.path.exists(OUTPUT_DIR):
     os.makedirs(OUTPUT_DIR)
     print(f"Created directory: {OUTPUT_DIR}")
 
 def fetch_ohlcv_data(symbol, interval, period="30d"):
-    """
-    Fetch OHLCV data from yfinance for specified symbol and interval.
-    
-    Args:
-        symbol (str): Stock symbol (e.g., 'RELIANCE.NS')
-        interval (str): Data interval ('1m', '5m', '1h', etc.)
-        period (str): Time period ('1d', '5d', '1mo', etc.)
-    
-    Returns:
-        pd.DataFrame: OHLCV data with columns Open, High, Low, Close, Volume
-    """
+  
     try:
         print(f"\nFetching {interval} data for {symbol}...")
         data = yf.download(symbol, interval=interval, period=period, progress=False)
@@ -70,14 +60,7 @@ def save_to_csv(dataframe, symbol, interval, output_dir):
         return None
 
 def iterate_and_process_ohlcv(symbol, intervals, output_dir):
-    """
-    Iterate through multiple intervals, fetch OHLCV data, and save to CSV files.
     
-    Args:
-        symbol (str): Stock symbol
-        intervals (list): List of intervals to fetch
-        output_dir (str): Output directory for CSV files
-    """
     print("=" * 60)
     print(f"OHLCV Data Fetcher - {symbol}")
     print("=" * 60)
